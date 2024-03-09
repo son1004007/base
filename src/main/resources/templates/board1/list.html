@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" >
+<!--      layout:decorate="main_template">-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>게시물 목록</title>
+
+    <!-- css  -->
+</head>
+<body>
+<h1>게시물 목록</h1>
+<button onclick="location.href='/board1/register'">등록</button>
+
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>관리</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="board1 : ${list}">
+        <!-- 번호(id) -->
+        <td th:text="${board1.id}">번호</td>
+        <!-- 제목 -->
+        <td th:text="${board1.title}">제목</td>
+        <!-- 카탈로그, 활용(수) -->
+        <td th:text="${board1.userId}">작성자</td>
+        <!-- 공개(여부) -->
+        <td th:text="${board1.registrationDate}">작성일</td>
+        <!-- 관리 버튼 : 삭제, 수정 -->
+        <td>
+            <button th:data-id="${board1.id}">삭제</button>
+            <button th:onclick="|location.href='modify?id=${board1.id}'|">수정</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    function deletePost(id) {
+        if (confirm('게시물을 삭제하시겠습니까?')) {
+            // 삭제 처리 로직 추가
+            alert('삭제되었습니다.');
+        }
+    }
+</script>
+</body>
+</html>

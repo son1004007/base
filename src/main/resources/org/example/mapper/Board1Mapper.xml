@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.Board1Mapper">
+
+    <insert id="create">
+        INSERT /* Board1Mapper.create */
+          INTO BOARD1
+             (
+               ID              /* 게시물 ID */
+             , TITLE           /* 제목 */
+             , CONTENT1        /* 내용1: 에디터 내용 */
+             , CONTENT2        /* 내용2: 이미지 */
+             , REGISTRATION_DATE /* 등록일 */
+             , MODIFICATION_DATE /* 변경일 */
+             , REGISTRATION_USER_ID      /* 작성자 */
+             , MODIFICATION_USER_ID      /* 수정자 */
+             , DELETE_YN        /* 삭제 여부 (Y: 삭제, N: 유지) */
+             )
+        VALUES
+             (
+               #{id}           /* 게시물 id */
+             , #{title}        /* 제목 */
+             , #{content1}     /* 내용1: 에디터 내용 */
+             , #{content2}     /* 내용2: 이미지 */
+             , now()           /* 등록일 */
+             , now()           /* 변경일 */
+             , #{registrationUserId}       /* 작성자 */
+             , #{modificationUserId}       /* 작성자 */
+             , 'N'             /* 삭제 여부 (새로 등록되는 게시물은 삭제되지 않은 상태로 초기화) */
+             )
+    </insert>
+
+    <select id="getList" resultType="org.example.model.Board1">
+        SELECT /* Board1Mapper.getList */
+               ID      /* 게시물 id */
+             , TITLE    /* 제목 */
+             , CONTENT1        /* 내용1: 에디터 내용 */
+             , CONTENT2        /* 내용2: 이미지 */
+             , REGISTRATION_DATE /* 등록일 */
+             , MODIFICATION_DATE /* 변경일 */
+             , REGISTRATION_USER_ID      /* 작성자 */
+             , MODIFICATION_USER_ID      /* 수정자 */
+          FROM BOARD1
+         WHERE DELETE_YN = 'N'
+         ORDER BY ID DESC
+             , REGISTRATION_DATE DESC
+         LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT  /* Board1Mapper.count */
+               COUNT(ID)
+          FROM BOARD1
+         WHERE DELETE_YN = 'N'
+    </select>
+
+    <select id="read" resultType="org.example.model.Board1">
+        SELECT /* Board1Mapper.read */
+               ID      /* 게시물 id */
+             , TITLE    /* 제목 */
+             , CONTENT1        /* 내용1: 에디터 내용 */
+             , CONTENT2        /* 내용2: 이미지 */
+             , REGISTRATION_DATE /* 등록 날짜 */
+             , MODIFICATION_DATE /* 수정 날짜 */
+             , REGISTRATION_USER_ID      /* 작성자 */
+             , MODIFICATION_USER_ID      /* 수정자 */
+          FROM BOARD1
+         WHERE DELETE_YN = 'N'
+           AND ID = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE /* Board1Mapper.update */
+               BOARD1
+           SET TITLE = #{title}   /* 제목 */
+             , CONTENT1 = #{content1}       /* 내용1: 에디터 내용 */
+             , CONTENT2 = #{content1}       /* 내용2: 이미지 */
+             , MODIFICATION_DATE = now()
+             , MODIFICATION_USER_ID = #{modificationUserId}     /* 수정자 */
+        WHERE ID = #{id}
+    </update>
+
+    <update id="delete">
+        UPDATE /* Board1Mapper.delete */
+               BOARD1
+           SET DELETE_YN = 'Y'
+             , MODIFICATION_USER_ID = #{modificationUserId}     /* 수정자 */
+         WHERE ID = #{id}
+    </update>
+</mapper>

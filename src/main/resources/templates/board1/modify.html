@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시물 수정</title>
+</head>
+<body>
+<h1>게시물 수정</h1>
+<form action="/board1/modify" method="post">
+    <label for="title">새로운 제목:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="content1">새로운 내용1: 에디터 내용:</label>
+    <textarea id="content1" name="content1" required></textarea>
+
+    <label for="content2">새로운 내용2: 이미지:</label>
+    <input type="file" id="content2" name="content2" accept="image/*">
+
+    <button type="submit">수정</button>
+</form>
+</body>
+</html>

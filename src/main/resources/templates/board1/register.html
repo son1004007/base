@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Board</title>
+    <!-- CSS -->
+    <link rel="stylesheet"  th:href="@{/css/sweetalert2.min.css}" />
+
+    <!-- JS -->
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/sweetalert2.all.min.js}"></script>
+
+    <script>
+        $(document).ready(function() {
+            let formObj = $("#reg_form");
+
+            $("#btnRegister").on("click", function() {
+                // const formData = new FormData(formObj[0]);
+                // console.log("formData", formData);
+                $.ajax({
+                    url: '/board1/register',
+                    type: 'post',
+                    data: formObj.serialize(), // 폼 데이터를 전송
+                    // processData: false, // jQuery가 데이터를 처리하지 않도록 설정
+                    // contentType: false, // contentType을 false로 설정
+                    success: function (response) {
+                        // 성공 응답 확인
+                        if (response === "SUCCESS") {
+                            Swal.fire({
+                                icon: "success",
+                                title: "저장이 완료되었습니다",
+                                showConfirmButton: true,
+                                timer: 2000,
+                            }).then(function() {
+                                // 확인 눌렀을때
+                                self.location = "/board1/list"
+                            });
+                        } else {
+                            // 다른 응답에 대한 처리
+                            // 예: 에러 메시지 출력 등
+                            console.error("서버 응답이 success가 아닙니다.");
+                        }
+                    },
+                    error: function() {
+                        console.error("통신 오류가 발생했습니다.");
+                    }
+                });
+            });
+
+            $("#btnList").on("click", function() {
+                self.location = "/board/list";
+            });
+        });
+    </script>
+</head>
+
+<body>
+<h1>게시물 등록</h1>
+<form method="POST" id="reg_form" th:action="@{/board1/list}" th:object="${board1}" >
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" name="title" th:field="*{title}" /></td>
+        </tr>
+        <tr>
+            <td>Writer</td>
+            <td><input type="text" name="writer" th:field="*{registrationUserId}" /></td>
+        </tr>
+        <tr>
+            <td>Content</td>
+            <td><textarea name="content" th:field="*{content1}"></textarea></td>
+        </tr>
+    </table>
+
+    <div>
+        <button type="button" id="btnRegister">Register</button>
+        <button type="button" id="btnList">List</button>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+	<title>Main</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- css -->
+
+	<!-- js -->
+	<script th:src="@{/adm/js/jquery-3.7.1.min.js}"></script>
+	<script th:src="@{/adm/js/sweetalert2.all.min.js}"></script>
+</head>
+
+<body>
+	<div id="wrap">
+		<aside>
+			<div class="nav_container">
+				<a th:href="@{/index}">
+					<img th:src="@{/imges/logo.png}" alt="logo" />
+					<h4>데이터 관리 시스템</h4>
+				</a>
+			</div>
+
+			<hr />
+
+			<div class="nav_container">
+				<div class="prof">
+					<div class="prof_photo">
+						<img th:src="@{/adm/imges/prof_m.png}" alt="profile_img" />
+					</div>
+
+					<div class="prof_info">
+						<!-- 이름 -->
+						<span th:text="${session.loginUserId}">name</span>
+						<!-- 이메일 -->
+						<p th:text="${session.loginUserNm}">email</p>
+					</div>
+
+<!--					<div class="logout_sign">-->
+<!--						<img th:src="@{/adm/imges/icon/nav_prof_logout.png}" alt="icon_logOut" />-->
+<!--					</div>-->
+				</div>
+			</div>
+
+			<div class="nav_container">
+				<ul class="nav">
+					<li>
+						<a th:href="@{/adm/solution/list}">
+							<img th:src="@{/adm/imges/icon/nav_datasolution_de.png}" alt="icon_dataSol" />
+							<span>솔루션</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/adm/catalog-util/list}">
+							<img th:src="@{/adm/imges/icon/nav_datapro_de.png}" alt="icon_dataProduct" />
+							<span>카달로그, 활용</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+
+					<li>
+						<a th:href="@{/adm/product/list}">
+							<img th:src="@{/adm/imges/icon/nav_datause_de.png}" alt="icon_dataUse" />
+							<span>상품</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+
+					<li>
+						<a th:href="@{/adm/ai-analysis-technology/list}" class="on">
+							<img th:src="@{/adm/imges/icon/nav_AI_de.png}" alt="icon_AI" />
+							<span>기술</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+
+					<li>
+						<a th:href="@{/adm/tech-story/list}">
+							<img th:src="@{/adm/imges/icon/nav_story_de.png}" alt="icon_story" />
+							<span>테크스토리</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+
+					<li>
+						<a th:href="@{/adm/faq/list}">
+							<img th:src="@{/adm/imges/icon/nav_FAQ_de.png}" alt="icon_FAQ" />
+							<span>FAQ</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/adm/partner/list}">
+							<img th:src="@{/adm/imges/icon/nav_partner_de.png}" alt="icon_partners" />
+							<span>파트너쉽</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+
+					<hr />
+
+					<li th:if="${#authorization.expression('hasRole(''최고관리자'')')}">
+						<a th:href="@{/adm/user/list}">
+							<img th:src="@{/adm/imges/icon/nav_usermanagement_de.png}" alt="icon_user" />
+							<span>사용자</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+
+					<li>
+						<a th:href="@{/adm/user/info}">
+							<img th:src="@{/adm/imges/icon/nav_info_de.png}" alt="icon_info_change" />
+							<span>정보 변경</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+
+					<li>
+						<a th:href="@{/adm/logout}">
+							<img th:src="@{/adm/imges/icon/nav_logout_de.png}" alt="icon_logout" />
+							<span>로그아웃</span>
+							<span class="dot"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+		<div layout:fragment="content"></div>
+		<script th:src="@{/adm/js/nav.js}"></script>
+	</div>
+</body>
+
+</html>
