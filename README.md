@@ -20,3 +20,6 @@ Git Address :
 - 개발(로컬)서버 : java $JVM_OPTS -jar base.jar --spring.config.location=/home/user/base/conf/application_dev.properties
 - 운영서버 : java $JVM_OPTS -jar base.jar --spring.config.location=/home/user/base/conf/application_prod.properties
  
+=======
+# base
+기본은 해보자
